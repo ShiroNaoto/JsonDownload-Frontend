@@ -23,9 +23,30 @@ export default function useRedis() {
     };
 
     // Function to download a specific Redis key's content as a JSON file
-    const downloadJson = async (key) => {
+    const downloadTerm = async (key) => {
         try {
-            const response = await axios.get(`redis/keys/download/${key}`, {
+            const response = await axios.get(`redis/keys/download/term/${key}`, {
+                responseType: 'blob' // Set response type to 'blob' for file download
+            });
+    
+            // Create a URL for the downloaded file and trigger the download
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${key}.json`);
+            document.body.appendChild(link);
+            link.click(); // Trigger the download
+            document.body.removeChild(link); // Clean up the DOM
+        } catch (error) {
+            console.error('Failed to download Redis key:', error);
+            errors.value.push(error.response ? error.response.data.message : error.message);
+            showMessage('error', 'Error', 'Failed to download Redis key');
+        }
+    };
+
+    const downloadSOA = async (key) => {
+        try {
+            const response = await axios.get(`redis/keys/download/soa/${key}`, {
                 responseType: 'blob' // Set response type to 'blob' for file download
             });
     
@@ -48,7 +69,8 @@ export default function useRedis() {
         keys,
         keyItem,
         getKeys,
-        downloadJson,
+        downloadTerm,
+        downloadSOA,
         errors
     };
 }

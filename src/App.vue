@@ -16,14 +16,13 @@ import { computed } from 'vue';
 
 const router = useRouter();
 
-
 const showNavbar = computed(() => {
-  const allowedRoutes = ['/dashboard', '/manage-users', '/manage-divisions', '/manage-tickets'];
+  const allowedRoutes = ['/dashboard', '/soa', '/terms'];
   return allowedRoutes.includes(router.currentRoute.value.path);
 });
 
 const showSideNav = computed(() => {
-  const allowedRoutes = ['/dashboard', '/manage-users', '/manage-divisions', '/manage-tickets'];
+  const allowedRoutes = ['/dashboard', '/soa', '/terms'];
   return allowedRoutes.includes(router.currentRoute.value.path);
 });
 </script>

@@ -3,6 +3,8 @@ import Login from '@/views/Auth/Login.vue'
 import Register from '@/views/Auth/Register.vue'
 import Forget from '@/views/Auth/Forget.vue'
 import Dashboard from '@/views/Dashboard.vue'
+import SOA from "@/views/User/SOA.vue";
+import Terms from "@/views/User/Termrate.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,18 @@ const router = createRouter({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
+      meta: { requiresAuth: true}
+     },
+     {
+      path: '/soa',
+      name: 'SOA',
+      component: SOA,
+      meta: { requiresAuth: true}
+     },
+     {
+      path: '/terms',
+      name: 'Terms',
+      component: Terms,
       meta: { requiresAuth: true}
      },
   ]
